@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'MyUser/css/signup.css' %}">
+<div class="form-signup">
+    <div class="header-signup">SIGN UP</div>
+    <div style="text-align:center;" class="avatar"><img src="{% static 'MyUser/images/user.png' %}" width="120px" height="120"></div>
+    <form action="{% url 'myuser:signup' %}" method="post" enctype="multipart/form-data" id="form-signup">
+        {% csrf_token %}
+        <div class="line-form-signup">
+            <label for="username">Họ tên:</label>
+            <input type="text" name="username" id="username" placeholder="Họ và tên">
+        </div>
+        <div class="line-form-signup">
+            <label for="email">email:</label>
+            <input type="email" name="email" id="email" placeholder="Email">
+        </div>
+        <div class="line-form-signup">
+            <label for="password">Mật khẩu:</label>
+            <input type="password" name="password" id="password" placeholder="Mật khẩu">
+        </div>
+        <div class="line-form-signup inline3">
+            <div>
+                <label for="phone">SĐT:</label>
+                <input type="text" name="phone_number" id="phone_number" placeholder="Điện thoại" id="phone">
+            </div>
+            <div>
+                <label for="sex">Giới tính:</label>
+                <select name="sex" id="sex">
+                    <option value="Nam">Nam</option>
+                    <option value="Nữ">Nữ</option>
+                </select>
+            </div>
+            <div>
+                <label for="date_of_birth">Ngày sinh: </label>
+                <input type="date" name="date_of_birth" id="date_of_birth">
+            </div>
+        </div>
+
+        <div class="line-form-signup inline3">
+            <div>
+                <label for="tinh-tp">Tỉnh/Tp:</label>
+                <select name="tinh-tp" id="tinh-tp">
+                    <option value="Hà Nội">Hà Nội</option>
+                    <option value="Hà Nam">Hà Nam</option>
+                    <option value="hải PHòng">hải PHòng</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="quan-huyen">Quận\huyện:</label>
+                <select name="quan-huyen" id="quan-huyen">
+                    <option value="Huyện 1">Huyện 1</option>
+                    <option value="Huyện 2">Huyện 2</option>
+                    <option value="Huyện 3">quận 3</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="truong">Trường:</label>
+                <select name="school" id="truong">
+                    <option value="thpt thạch thất">thpt thạch thất</option>
+                    <option value="trường 1">trường 1</option>
+                    <option value="quận 3">quận 3</option>
+                </select>
+            </div>
+
+        </div>
+        <div class="line-form-signup">
+            <label for="images">Avatar:</label>
+            <span><input type="file" name="image" accept="image/png, image/gif, image/jpeg" id="images"></span>
+        </div>
+        <div>
+            <button type="submit" class="btn-signup">Đăng ký</button>
+        </div>
+    </form>
+    <button id="btn">CLick zoo</button>
+</div>
+<script src="{% static 'MyUser/javascript/loadAjax.js' %}"></script>
+{% endblock %}

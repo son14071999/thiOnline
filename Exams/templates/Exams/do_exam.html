@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'Exams/css/do_exam.css' %}">
+<script src="{% static 'Exams/javascript/do_exam.js' %}"></script>
+<form action="{% url 'exam:check' %}" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="do-time" value="{{ exam.time }}" id="do-time">
+    <div class="wrapper-exam">
+        <div class="show-exam">
+            <div class="info-exam">
+                <h2 class="title-exam">{{ exam.name }}</h2>
+                <div class="time">Thời gian: {{ exam.time }}</div>
+            </div>
+            <div class="questions">
+                {% for question in questions %}
+                <div class="question">
+                    <div class="title-qs">
+                        <span>{{ forloop.counter }}. </span>{{ question.question }}
+                        <div>
+                            {% if question.link_media %}
+                            <center><img src="{{ MEDIA_URL }}{{ question.link_media }}" width="50%"></center>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% with my_var=forloop.counter %}
+
+
+                    {% for answer in question.answers %}
+                    <div>
+                        <span>{{ answer.label }}: </span>
+                        <input type="radio" id="{{ my_var }}" name="{{ question.id }}"
+                               value="{{ answer.label }}">
+                        <label for="{{ my_var }}">{{ answer.content }}</label><br>
+                    </div>
+                    {% endfor %}
+                    {% endwith %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="check-questions">
+            <div id="clock">
+                <span id="h">Giờ</span> :
+                <span id="m">Phút</span> :
+                <span id="s">Giây</span>
+            </div>
+            <div class="form-check">
+                {% for i in questions %}
+                <div class="qs qs-{{ forloop.counter }}">{{ forloop.counter }}</div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="wrapper-submit">
+        <input type="hidden" name="time-do" value="16">
+        <input type="hidden" name="id" value="{{ exam.id }}">
+        <button type="submit" class="submit">Nộp bài</button>
+    </div>
+</form>
+{% endblock %}

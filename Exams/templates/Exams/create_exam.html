@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'Exams/css/create_exam.css' %}">
+<script src="{% static 'Exams/javascript/create_exam.js' %}"></script>
+<div class="wrapper-create-exam">
+    <form action="{% url 'exam:create-exam' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% if message %}
+               <div class="error">{{ message }}</div>
+        {% endif %}
+
+        <div class="create-exam">
+            <div class="button-exam">
+                <button type="button" class="btn-exam active-exam" id="info info-exam">Đề thi</button>
+                <button type="button" class="btn-exam" id="info info-options">Tuỳ chọn</button>
+            </div>
+            <div class="info info-exam">
+                <div>
+                    <label for="name-exam">Tên đề: </label>
+                    <input type="text" name="name_exam" id="name-exam">
+                </div>
+                <div>
+                    <div>
+                        <label for="subject">Môn: </label>
+                        <select name="subject" id="subject">
+                            {% for subject in subjects %}
+                            <option value="{{ subject }}">{{ subject }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div>
+                        <label for="time">Thời gian: </label>
+                        <input type="number" name="time" id="time" min="5" max="300" value="50"><span> Phút</span>
+                    </div>
+                </div>
+            </div>
+            <div class="info info-options" style="display:none;">
+                <span>info options</span>
+            </div>
+        </div>
+        <div class="create-questions">
+            <div class="wrapper">
+                {% for i in "x"|rjust:"5" %}
+                <div class="info-question">
+                    <div class="line">
+                        <label for="question">Câu {{ forloop.counter }}: </label>
+                        <textarea name="question-{{ forloop.counter }}" id="question" rows="3"></textarea>
+                    </div>
+                    <div class="line">
+                        <input type="file" name="image-{{ forloop.counter }}" id="image-exam" accept="image/png, image/jpeg">
+                    </div>
+                    <div class="line answers">
+                        <div style="font-size: 1.2rem;"> Đáp án:</div>
+                        <div class="answer">
+                            <label for="A-{{ forloop.counter }}">A: </label>
+                            <input type="text" name="answer-A-{{ forloop.counter }}" id="A-{{ forloop.counter }}">
+                        </div>
+                        <div class="answer">
+                            <label for="B-{{ forloop.counter }}">B: </label>
+                            <input type="text" name="answer-B-{{ forloop.counter }}" id="B-{{ forloop.counter }}">
+                        </div>
+                        <div class="answer">
+                            <label for="C-{{ forloop.counter }}">C: </label>
+                            <input type="text" name="answer-C-{{ forloop.counter }}" id="C-{{ forloop.counter }}">
+                        </div>
+                        <div class="answer">
+                            <label for="D-{{ forloop.counter }}">D: </label>
+                            <input type="text" name="answer-D-{{ forloop.counter }}" id="D-{{ forloop.counter }}">
+                        </div>
+                    </div>
+                    <div class="line correct-answer">
+                        <div style="margin-bottom: 2rem">
+                            Đáp án đúng?
+                        </div>
+                        <div>
+                            <label for="A-{{ forloop.counter }}-radio">A: </label>
+                            <input type="radio" name="correct-answer-{{ forloop.counter }}" id="A-{{ forloop.counter }}-radio" value="A">
+                            <label for="B-{{ forloop.counter }}-radio">B: </label>
+                            <input type="radio" name="correct-answer-{{ forloop.counter }}" id="B-{{ forloop.counter }}-radio" value="B">
+                            <label for="C-{{ forloop.counter }}-radio">C: </label>
+                            <input type="radio" name="correct-answer-{{ forloop.counter }}" id="C-{{ forloop.counter }}-radio" value="C">
+                            <label for="D-{{ forloop.counter }}-radio">D: </label>
+                            <input type="radio" name="correct-answer-{{ forloop.counter }}" id="D-{{ forloop.counter }}-radio" value="D">
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="add-remove-question">
+                <span class="add-question"><img src="{% static 'Exams/image/plus.png' %}" alt=""></span>
+                <span class="remove-question"><img src="{% static 'Exams/image/remove.png' %}" alt=""></span>
+            </div>
+        </div>
+        <div class="submit">
+            <button type="submit" class="submit-exam">Xong</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

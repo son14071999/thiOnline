@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'Exams/css/manage.css' %}">
+<div class="wrapper">
+    <div>
+        <div>Đề đã làm: </div>
+        <table class="customers">
+            <tr>
+                <th>Đề</th>
+            </tr>
+            {% for exam in exams_do %}
+            <tr>
+                <td>{{ exam.id_exam.name }}</td>
+
+            </tr>
+            {% endfor %}
+        </table>
+
+    </div>
+    <div>
+        <div>Đề đã tạo: </div>
+        <table class="customers">
+            <tr>
+                <th>Đề</th>
+            </tr>
+            {% for exam in exams_create %}
+            <tr>
+                <td>{{ exam.name }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+    </div>
+</div>
+
+{% endblock %}

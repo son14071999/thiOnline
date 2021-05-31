@@ -1,0 +1,82 @@
+.form-login {
+    border: 1px solid;
+    width: 40%;
+    min-width: 500px;
+    border-radius: 10px;
+    padding: 30px;
+    margin: auto;
+}
+
+.form-login div {
+    margin-top: 1rem;
+}
+
+.form-login input {
+    border-radius: 3px;
+    box-shadow: 0 0 2px;
+}
+
+.form-login > form > div {
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+}
+.form-login > form > div > div{
+    align-items: baseline;
+}
+.form-login > form > div > input {
+    flex: 1;
+}
+
+.form-login label {
+    min-width: 5rem;
+}
+
+.inline3 {
+    justify-content: space-between;
+}
+
+.inline3 > div {
+    display: inline-flex
+}
+
+.header-login {
+    text-align: center;
+    font-size: 3rem;
+    font-family: cursive;
+}
+
+.avatar img {
+    padding: 7px;
+    border: 1px solid;
+    border-radius: 50%;
+}
+
+button.btn-login {
+    margin: auto;
+    padding: 5px 10px;
+    border-radius: 10px;
+    background: #79b874;
+    font-size: 1.5rem;
+    margin-top: 20px;
+}
+
+button.btn-login:hover {
+    cursor: pointer;
+    background-color: #e6fffd;
+}
+
+.form-login input, select {
+    padding: 5px 5px;
+    border-radius: 3px;
+}
+
+input#images {
+    box-shadow: none;
+}
+.forgot-password{
+    justify-content: center;
+    opacity: 0.7;
+    font-size: 1.2rem;
+}

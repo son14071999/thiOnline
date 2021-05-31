@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'History/css/style.css' %}">
+<table id="customers">
+    <tr>
+        <th>Đề</th>
+        <th>Thời gian</th>
+        <th>Thời gian nộp</th>
+        <th>Điểm</th>
+    </tr>
+    {% for exam in exams %}
+    <tr>
+        <td>{{ exam.id_exam.name }}</td>
+        <td>{{ exam.time_do }}</td>
+        <td>{{ exam.date }}</td>
+        <td>{{ exam.correct }}/{{ exam.amount }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

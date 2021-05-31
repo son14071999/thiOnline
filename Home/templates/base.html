@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'Home/css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="{% static 'Home/javascript/style.js' %}"></script>
+
+</head>
+<body>
+<div id="header">
+    <div class="header-left">
+        <span class="control-menu"><img src="{% static 'Home/images/menu.png' %}"></span>
+        <a href="{% url 'Home:home' %}'"><img src="{% static 'Home/images/logo.png' %}" class="logo-web"></a>
+    </div>
+    <div class="header-right">
+        {% if user.is_authenticated %}
+        <a class="btn-login avatar-user" href="{% url 'myuser:login' %}"><img src="{{ MEDIA_URL }}{{ user.image }}"></a>
+        {% else %}
+        <a class="btn-login" href="{% url 'myuser:login' %}">Log in</a><span> | </span>
+        <a class="btn-signup" href="{% url 'myuser:signup' %}">Sign up</a>
+        {% endif %}
+    </div>
+</div>
+<div id="content">
+    <div class="menu-left">
+        <div class="icon-left test">
+            <a href="{% url 'exam:show-list-exam' %}">
+                <span><img src="{% static 'Home/images/test.png' %}" alt="Luyện tập" title="Luyện tập"></span>
+                <span class="content-icon-left">Luyện tập</span>
+            </a>
+        </div>
+
+        <div class="icon-left create-exam">
+            <a href="{% url 'exam:create-exam' %}">
+                <span><img src="{% static 'Home/images/create.png' %}" alt="Tạo đề" title="Tạo đề"></span>
+                <span class="content-icon-left">Tạo đề</span>
+            </a>
+        </div>
+
+
+        <div class="icon-left history">
+            <a href="{% url 'history:getHistory' %}">
+                <span><img src="{% static 'Home/images/history.png' %}" alt="Lịch sử" title="Lịch sử"></span>
+                <span class="content-icon-left">Lịch sử</span>
+            </a>
+        </div>
+        <div class="icon-left manage-exam">
+            <a href="{% url 'exam:manage' %}">
+                <span><img src="{% static 'Home/images/manage.png' %}" alt="Quản lý đề" title="Quản lý đề"></span>
+                <span class="content-icon-left">Quản lý đề</span>
+            </a>
+        </div>
+        <div class="icon-left settings">
+            <a href="{% url 'exam:create-exam' %}">
+                <span><img src="{% static 'Home/images/settings.png' %}" alt="Cài đặt" title="Cài đặt"></span>
+                <span class="content-icon-left">Cài đặt</span>
+            </a>
+        </div>
+    </div>
+    <div class="content-center">
+        {% block content %}
+        {% endblock %}
+
+    </div>
+</div>
+
+</body>
+</html>

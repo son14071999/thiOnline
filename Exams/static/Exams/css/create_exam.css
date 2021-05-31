@@ -1,0 +1,130 @@
+.wrapper-create-exam .create-exam{
+    border: 1px solid black;
+    border-radius: 10px;
+}
+.button-exam{
+    border-bottom: 0.5px solid;
+}
+.create-exam>.button-exam>button{
+    display: inline-block;
+    padding: 10px;
+    border: none;
+    background-color: white;
+    font-size: 1.5rem;
+    border-radius: 10px 0 0;
+}
+.create-exam>.button-exam>button:hover{
+    background-color: #f1f1f1;
+    font-size: 1.55rem;
+    cursor: pointer;
+}
+.active-exam{
+    background-color: #aeaeae !important;
+}
+
+.create-exam .info{
+    padding: 10px;
+}
+
+.info.info-exam > div{
+    display: flex;
+    margin-bottom: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    font-size: 1.2rem;
+}
+.info.info-exam > div > div{
+    margin-right: 15px;
+}
+.info.info-exam > div > input{
+    flex: 1;
+}
+.info.info-exam input,select{
+    box-shadow: 0 0 3px;
+}
+.create-exam label{
+    min-width: 70px;
+}
+textarea{
+    resize:vertical;
+}
+.create-questions{
+    border: 1px solid black;
+    margin-top: 7rem;
+    border-radius: 10px;
+    box-shadow: 0 1px;
+    padding: 10px;
+}
+.create-questions .info-question {
+    border-bottom: 1px solid;
+    margin-bottom: 3rem;
+    padding-bottom: 20px;
+}
+.create-questions .info-question > div{
+    display: flex;
+}
+.create-questions .info-question > div > label{
+    min-width: 70px;
+}
+.create-questions .info-question > div > input,textarea{
+    flex: 1;
+    border-radius: 10px;
+}
+input, textarea{
+    padding: 5px;
+}
+
+.line.answers{
+    margin-top: 3rem;
+    flex-direction: column;
+}
+
+.create-questions .info-question .answer{
+    display: flex;
+    margin-top: 20px;
+}
+.create-questions .info-question .answer input{
+    margin-left: 2rem;
+    flex: 1;
+    border-radius: 5px;
+}
+.line.correct-answer{
+    margin-top: 3rem;
+    flex-direction: column;
+}
+.line.correct-answer div input{
+    margin-right: 10px;
+}
+.add-remove-question img{
+    width: 2rem;
+    height: 2rem;
+    margin-left: 1rem;
+}
+.add-remove-question img:hover{
+    cursor: pointer;
+}
+.add-remove-question{
+    display: flex;
+    justify-content: flex-end;
+}
+.submit-exam{
+    text-align: center;
+    margin-top: 5rem;
+    padding: 10px 20px;
+    background-color: #79b874;
+    border-radius: 10px;
+    box-shadow: 0 0 5px red;
+}
+.submit-exam:hover{
+    cursor: pointer;
+}
+.submit{
+    display: flex;
+    justify-content: center;
+}
+.error {
+    text-align: center;
+    color: red;
+    opacity: 0.6;
+    font-size: 1.2rem;
+}

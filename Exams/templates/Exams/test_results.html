@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'Exams/css/do_exam.css' %}">
+<script src="{% static 'Exams/javascript/do_exam.js' %}"></script>
+<div class="wrapper-exam">
+    <div class="show-exam">
+        <div class="info-exam">
+            <h2 class="title-exam">{{ exam.name }}</h2>
+            <div class="time">Thời gian: {{ exam.time }}</div>
+            <div class="score" style="color: red;">Kết quả: {{ score }}/{{ number }}</div>
+        </div>
+        <div class="questions">
+            {% for question in questions %}
+            <div class="question">
+                <div class="title-qs">
+                    <span>{{ forloop.counter }}. </span>{{ question.question }}
+                    <div>
+                        {% if question.link_media %}
+                        <img src="{{ MEDIA_URL }}{{ question.link_media }}" width="50%">
+                        {% endif %}
+                    </div>
+                </div>
+
+                {% with my_var=forloop.counter %}
+
+
+                {% for answer in question.answers %}
+                {% if answer.label == question.correct_question and answer.label == question.correct %}
+                <div style="color:green;">
+                    <span>{{ answer.label }}: </span>
+                    <input type="radio" id="{{ my_var }}" name="{{ question.id }}"
+                           value="{{ answer.label }}" checked>
+                    <label for="{{ my_var }}">{{ answer.content }}</label><br>
+                </div>
+                {% elif answer.label == question.correct %}
+                <div style="color:red;">
+                    <span>{{ answer.label }}: </span>
+                    <input type="radio" id="{{ my_var }}" name="{{ question.id }}"
+                           value="{{ answer.label }}" checked>
+                    <label for="{{ my_var }}">{{ answer.content }}</label><br>
+                </div>
+                {% elif answer.label == question.correct_question %}
+                <div style="color:green;">
+                    <span>{{ answer.label }}: </span>
+                    <input type="radio" id="{{ my_var }}" name="{{ question.id }}"
+                           value="{{ answer.label }}" checked>
+                    <label for="{{ my_var }}">{{ answer.content }}</label><br>
+                </div>
+                {% else %}
+                <div>
+                    <span>{{ answer.label }}: </span>
+                    <input type="radio" id="{{ my_var }}" name="{{ question.id }}"
+                           value="{{ answer.label }}">
+                    <label for="{{ my_var }}">{{ answer.content }}</label><br>
+                </div>
+                {% endif %}
+
+                {% endfor %}
+                {% endwith %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

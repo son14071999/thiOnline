@@ -1,0 +1,106 @@
+:root{
+    --height-header: 4rem;
+    --width-menu-left: 15%;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+#header{
+    width: 100%;
+    height: var(--height-header);
+    background-color: white;
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    box-shadow: 5px 5px 5px #766b6b;
+    justify-content: space-between;
+    z-index: 1000;
+}
+.header-right{
+    font-size: 1.5rem;
+    line-height: var(--height-header);
+}
+.btn-signup{
+    margin-right: 3rem;
+}
+.btn-signup, .btn-login{
+    text-decoration: none;
+}
+#content{
+    margin-top: var(--height-header);
+    display: flex;
+}
+#content .menu-left{
+    background-color: #f2f0f0;
+    height: 80vh;
+    width: var(--width-menu-left);
+    position: fixed;
+    display: flex;
+    align-content: space-around;
+    flex-wrap: wrap;
+    padding-bottom: 150px;
+    transition: 0.7s;
+}
+#content .content-center{
+    margin-left: var(--width-menu-left);
+    background-color:white;
+    flex: 1;
+    padding: 3rem;
+}
+.logo-web{
+    height:3.5rem;
+    margin-left: 4rem;
+}
+.logo-web:hover{
+    cursor: pointer;
+}
+span.control-menu {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+}
+.control-menu img{
+    height: 2rem;
+}
+.control-menu img:hover{
+    cursor: pointer;
+}
+.menu-left .icon-left{
+    margin: 0;
+    padding: 10px 0;
+    width: 100%;
+}
+.menu-left .icon-left span{
+    margin-left:10px;
+}
+.menu-left .icon-left img{
+    width: 2.5rem;
+}
+.content-icon-left{
+    font-size: 1.2rem;
+}
+
+.menu-left .icon-left:hover{
+    cursor: pointer;
+    background-color: #d0cece;
+}
+
+.avatar-user img{
+    width:2rem;
+    height:2rem;
+    margin-right:2rem;
+    border-radius: 50%;
+}
+.icon-left>a{
+    text-decoration: none;
+    color:black;
+}
+@media only screen and (max-width: 1020px){
+  .content-icon-left{
+      display: none;
+  }
+}

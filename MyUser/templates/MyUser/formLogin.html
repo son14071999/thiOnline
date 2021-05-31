@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'MyUser/css/login.css' %}">
+<div class="form-login">
+    <div class="header-login">LOG IN</div>
+    <div style="text-align:center;" class="avatar"><img src="{% static 'MyUser/images/user.png' %}" width="120px" height="120"></div>
+    {% if err %}
+    <div style="color:red;">{{ err }}</div>
+    {% endif %}
+    <form action="{% url 'myuser:login' %}" method="post">
+        {% csrf_token %}
+        <div class="line-form-login">
+            <label for="email">email:</label>
+            <input type="email" name="email" id="email" placeholder="Email">
+        </div>
+        <div class="line-form-login">
+            <label for="password">Mật khẩu:</label>
+            <input type="password" name="password" id="password" placeholder="Mật khẩu">
+        </div>
+        <div>
+            <button type="submit" class="btn-login">Đăng nhập</button>
+        </div>
+      <div class="forgot-password">
+        <a href="#">Bạn quên mật khẩu?</a>
+      </div>
+
+    </form>
+</div>
+{% endblock %}
