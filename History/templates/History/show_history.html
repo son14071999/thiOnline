@@ -9,12 +9,12 @@
         <th>Thời gian nộp</th>
         <th>Điểm</th>
     </tr>
-    {% for exam in exams %}
+    {% for history in historys %}
     <tr>
-        <td>{{ exam.id_exam.name }}</td>
-        <td>{{ exam.time_do }}</td>
-        <td>{{ exam.date }}</td>
-        <td>{{ exam.correct }}/{{ exam.amount }}</td>
+        <td><a href="{% url 'history:show_history' history.id %}">{{ history.id_exam.name }}</a></td>
+        <td><a href="{% url 'history:show_history' history.id %}">{{ history.time_do }} phút</a></td>
+        <td><a href="{% url 'history:show_history' history.id %}">{{ history.date }}</a></td>
+        <td><a href="{% url 'history:show_history' history.id %}">{{ history.correct }}/{{ history.amount }}</a></td>
     </tr>
     {% endfor %}
 </table>

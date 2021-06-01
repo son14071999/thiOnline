@@ -3,7 +3,7 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'Exams/css/do_exam.css' %}">
 <script src="{% static 'Exams/javascript/do_exam.js' %}"></script>
-<form action="{% url 'exam:check' %}" method="post">
+<form action="{% url 'exam:check' %}" method="post" id="form-submit">
     {% csrf_token %}
     <input type="hidden" name="do-time" value="{{ exam.time }}" id="do-time">
     <div class="wrapper-exam">
@@ -38,6 +38,11 @@
                 </div>
                 {% endfor %}
             </div>
+            <div class="wrapper-submit">
+                <input type="hidden" name="time-do" value="0">
+                <input type="hidden" name="id" value="{{ exam.id }}">
+                <button type="submit" class="submit">Nộp bài</button>
+            </div>
         </div>
         <div class="check-questions">
             <div id="clock">
@@ -51,11 +56,8 @@
                 {% endfor %}
             </div>
         </div>
+
     </div>
-    <div class="wrapper-submit">
-        <input type="hidden" name="time-do" value="16">
-        <input type="hidden" name="id" value="{{ exam.id }}">
-        <button type="submit" class="submit">Nộp bài</button>
-    </div>
+
 </form>
 {% endblock %}

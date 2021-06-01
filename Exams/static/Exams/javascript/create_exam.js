@@ -29,30 +29,31 @@ $(document).ready(function () {
         number = parseInt(number.replace('Câu ', '').replace(':', '')) + 1;
         console.log(number);
         let add =
-            '                    <div class="line">\n' +
-            '                        <label for="question">Câu ' + number + ': </label>\n' +
-            '                        <textarea name="question" id="question" rows="3"></textarea>\n' +
+'<div class="line">\n' +
+            '                        <label for="question">Câu '+number+': </label>\n' +
+            '                        <textarea name="question-'+number+'" id="question" rows="3"></textarea>\n' +
             '                    </div>\n' +
-            '                   <div className="line">\n' +
-            '                           <input type="file" name="image-'+ number +'" id="image-exam" accept="image/png, image/jpeg">\n' +
-            '                   </div>\n' +
+            '                    <div class="line">\n' +
+            '                        <input type="file" name="image-'+number+'" id="image-exam"\n' +
+            '                               accept="image/png, image/jpeg">\n' +
+            '                    </div>\n' +
             '                    <div class="line answers">\n' +
             '                        <div style="font-size: 1.2rem;"> Đáp án:</div>\n' +
             '                        <div class="answer">\n' +
-            '                            <label for="A-' + number + '">A: </label>\n' +
-            '                            <input type="text" name="answer-A-' + number + '" id="A-' + number + '">\n' +
+            '                            <label for="A-'+number+'">A: </label>\n' +
+            '                            <input type="text" name="answer-A-'+number+'" id="A-'+number+'">\n' +
             '                        </div>\n' +
             '                        <div class="answer">\n' +
-            '                            <label for="B-' + number + '">B: </label>\n' +
-            '                            <input type="text" name="answer-B-' + number + '" id="B-' + number + '">\n' +
+            '                            <label for="B-'+number+'">B: </label>\n' +
+            '                            <input type="text" name="answer-B-'+number+'" id="B-'+number+'">\n' +
             '                        </div>\n' +
             '                        <div class="answer">\n' +
-            '                            <label for="C-' + number + '">C: </label>\n' +
-            '                            <input type="text" name="answer-C-' + number + '" id="C-' + number + '">\n' +
+            '                            <label for="C-'+number+'">C: </label>\n' +
+            '                            <input type="text" name="answer-C-'+number+'" id="C-'+number+'">\n' +
             '                        </div>\n' +
             '                        <div class="answer">\n' +
-            '                            <label for="D-' + number + '">D: </label>\n' +
-            '                            <input type="text" name="answer-A-' + number + '" id="D-' + number + '">\n' +
+            '                            <label for="D-'+number+'">D: </label>\n' +
+            '                            <input type="text" name="answer-D-'+number+'" id="D-'+number+'">\n' +
             '                        </div>\n' +
             '                    </div>\n' +
             '                    <div class="line correct-answer">\n' +
@@ -60,16 +61,31 @@ $(document).ready(function () {
             '                            Đáp án đúng?\n' +
             '                        </div>\n' +
             '                        <div>\n' +
-            '                            <label for="A-' + number + '-radio">A: </label>\n' +
-            '                            <input type="radio" name="correct-answer" id="A-' + number + '-radio" value="A">\n' +
-            '                            <label for="B-' + number + '-radio">B: </label>\n' +
-            '                            <input type="radio" name="correct-answer" id="B-' + number + '-radio" value="B">\n' +
-            '                            <label for="C-' + number + '-radio">C: </label>\n' +
-            '                            <input type="radio" name="correct-answer" id="C-' + number + '-radio" value="C">\n' +
-            '                            <label for="D-' + number + '-radio">D: </label>\n' +
-            '                            <input type="radio" name="correct-answer" id="D-' + number + '-radio" value="D">\n' +
+            '                            <label for="A-'+number+'-radio">A: </label>\n' +
+            '                            <input type="radio" name="correct-answer-'+number+'"\n' +
+            '                                   id="A-'+number+'-radio" value="A">\n' +
+            '                            <label for="B-'+number+'-radio">B: </label>\n' +
+            '                            <input type="radio" name="correct-answer-'+number+'"\n' +
+            '                                   id="B-'+number+'-radio" value="B">\n' +
+            '                            <label for="C-'+number+'-radio">C: </label>\n' +
+            '                            <input type="radio" name="correct-answer-'+number+'"\n' +
+            '                                   id="C-'+number+'-radio" value="C">\n' +
+            '                            <label for="D-'+number+'-radio">D: </label>\n' +
+            '                            <input type="radio" name="correct-answer-'+number+'"\n' +
+            '                                   id="D-'+number+'-radio" value="D">\n' +
             '                        </div>\n' +
+            '                    </div>\n' +
+            '                    <div class="line level">\n' +
+            '                        <label for="level">Độ khó:</label>\n' +
+            '                        <select name="level-'+number+'" id="level">\n' +
+            '                            <option value="1">Rất dễ</option>\n' +
+            '                            <option value="2">Dễ</option>\n' +
+            '                            <option value="3" selected>Trung bình</option>\n' +
+            '                            <option value="4">Khó</option>\n' +
+            '                            <option value="4">Rất khó</option>\n' +
+            '                        </select>\n' +
             '                    </div>';
+
 
         let div = document.createElement("div");
         div.className += 'info-question';

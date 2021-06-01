@@ -11,7 +11,7 @@
             </tr>
             {% for exam in exams_do %}
             <tr>
-                <td>{{ exam.id_exam.name }}</td>
+                <td><a href="{% url 'history:show_history' exam.id %}">{{ exam.id_exam.name }}</a></td>
 
             </tr>
             {% endfor %}

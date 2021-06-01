@@ -15,4 +15,4 @@ class Questions(models.Model):
     link_media = models.FileField(null=True, blank=True, upload_to='exam/')
     same_questions = models.TextField(null=True, blank=True)
     subject = models.CharField(null=False, max_length=50)
-    correct_question = models.CharField(max_length=2, default='A')
+    correct_answer = models.CharField(max_length=2)

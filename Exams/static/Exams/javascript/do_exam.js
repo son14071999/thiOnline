@@ -10,25 +10,22 @@ $(document).ready(function () {
     }
 });
 $(document).ready(function () {
-    var m = parseInt($('#do-time').val());
-    console.log(m);
+    var time_do = $('input[name="time-do"]');
+    console.log('time-do: ', time_do);
+    var m = parseInt($('#do-time').val()) - 9;
     var h = parseInt(m/60);
     m = m%60;
     var s = 60;
     function start() {
-
-        /*BƯỚC 1: CHUYỂN ĐỔI DỮ LIỆU*/
-        // Nếu số giây = -1 tức là đã chạy ngược hết số giây, lúc này:
-        //  - giảm số phút xuống 1 đơn vị
-        //  - thiết lập số giây lại 59
         if (s === -1) {
             m -= 1;
             s = 59;
+            let temp = parseInt(time_do.val());
+            time_do.val(temp+1);
+            console.log(temp);
+            console.log(time_do);
         }
 
-        // Nếu số phút = -1 tức là đã chạy ngược hết số phút, lúc này:
-        //  - giảm số giờ xuống 1 đơn vị
-        //  - thiết lập số phút lại 59
         if (m === -1) {
             h -= 1;
             m = 59;
@@ -38,8 +35,7 @@ $(document).ready(function () {
         //  - Dừng chương trình
         if (h == -1) {
             clearTimeout(timeout);
-            alert('Hết giờ');
-            return false;
+            $('#form-submit').submit();
         }
 
         /*BƯỚC 1: HIỂN THỊ ĐỒNG HỒ*/

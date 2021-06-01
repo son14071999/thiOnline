@@ -18,3 +18,4 @@ class Exams(models.Model):
     amount_view_user = models.IntegerField(default=0)
     amount_do = models.IntegerField(default=0)
     comments = models.JSONField(null=True, blank=True, default=dict)
+    options = models.JSONField(null=True, blank=True, default=dict)

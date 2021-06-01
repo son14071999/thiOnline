@@ -9,7 +9,7 @@
         <div class="info-exam">
             <h2 class="title-exam">{{ exam.name }}</h2>
             <div class="time">Thời gian: {{ exam.time }}</div>
-            <div class="score" style="color: red;">Kết quả: {{ score }}/{{ number }}</div>
+            <div class="score" style="color: red;">Kết quả: {{ history.correct }}/{{ history.amount }}</div>
         </div>
         {% endif %}
         <div class="questions">

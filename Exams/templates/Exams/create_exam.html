@@ -7,7 +7,7 @@
     <form action="{% url 'exam:create-exam' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {% if message %}
-               <div class="error">{{ message }}</div>
+        <div class="error">{{ message }}</div>
         {% endif %}
 
         <div class="create-exam">
@@ -48,7 +48,8 @@
                         <textarea name="question-{{ forloop.counter }}" id="question" rows="3"></textarea>
                     </div>
                     <div class="line">
-                        <input type="file" name="image-{{ forloop.counter }}" id="image-exam" accept="image/png, image/jpeg">
+                        <input type="file" name="image-{{ forloop.counter }}" id="image-exam"
+                               accept="image/png, image/jpeg">
                     </div>
                     <div class="line answers">
                         <div style="font-size: 1.2rem;"> Đáp án:</div>
@@ -75,14 +76,28 @@
                         </div>
                         <div>
                             <label for="A-{{ forloop.counter }}-radio">A: </label>
-                            <input type="radio" name="correct-answer-{{ forloop.counter }}" id="A-{{ forloop.counter }}-radio" value="A">
+                            <input type="radio" name="correct-answer-{{ forloop.counter }}"
+                                   id="A-{{ forloop.counter }}-radio" value="A">
                             <label for="B-{{ forloop.counter }}-radio">B: </label>
-                            <input type="radio" name="correct-answer-{{ forloop.counter }}" id="B-{{ forloop.counter }}-radio" value="B">
+                            <input type="radio" name="correct-answer-{{ forloop.counter }}"
+                                   id="B-{{ forloop.counter }}-radio" value="B">
                             <label for="C-{{ forloop.counter }}-radio">C: </label>
-                            <input type="radio" name="correct-answer-{{ forloop.counter }}" id="C-{{ forloop.counter }}-radio" value="C">
+                            <input type="radio" name="correct-answer-{{ forloop.counter }}"
+                                   id="C-{{ forloop.counter }}-radio" value="C">
                             <label for="D-{{ forloop.counter }}-radio">D: </label>
-                            <input type="radio" name="correct-answer-{{ forloop.counter }}" id="D-{{ forloop.counter }}-radio" value="D">
+                            <input type="radio" name="correct-answer-{{ forloop.counter }}"
+                                   id="D-{{ forloop.counter }}-radio" value="D">
                         </div>
+                    </div>
+                    <div class="line level">
+                        <label for="level">Độ khó:</label>
+                        <select name="level-{{ forloop.counter }}" id="level">
+                            <option value="1">Rất dễ</option>
+                            <option value="2">Dễ</option>
+                            <option value="3" selected>Trung bình</option>
+                            <option value="4">Khó</option>
+                            <option value="4">Rất khó</option>
+                        </select>
                     </div>
                 </div>
                 {% endfor %}

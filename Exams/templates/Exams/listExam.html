@@ -12,26 +12,30 @@
             </select>
         </div>
         <div class="search">
-            <input type="text" name="search" id="searchbar" value="Tìm kiếm">
+            <form action="{% url 'exam:search' %}" method="get">
+                {% csrf_token %}
+                <input type="text" name="search" id="searchbar" value="Tìm kiếm">
+
+            </form>
         </div>
     </div>
     <div class="wrapper-se">
-        {% for question in questions %}
+        {% for exam in exams %}
         <div class="content-se">
             <div class="card-se">
-                <div><h2>{{ question.name }}</h2></div>
+                <div><h2>{{ exam.name }}</h2></div>
                 <div class="row-2">
                     <div><img src="{% static 'Exams/image/view.png' %}" width="30px" alt="Lượt xem"
-                              title="Lượt xem"><span> {{ question.amount_view_user }}</span></div>
-                    <div><img src="{% static 'Exams/image/writing.png' %}" width="30px" alt="Lượt làm" title="Lượt làm"><span> {{ question.amount_do }}</span>
+                              title="Lượt xem"><span> {{ exam.amount_view_user }}</span></div>
+                    <div><img src="{% static 'Exams/image/writing.png' %}" width="30px" alt="Lượt làm" title="Lượt làm"><span> {{ exam.amount_do }}</span>
                     </div>
-                    <div><img src="{% static 'Exams/image/clock.png' %}" width="30px" alt="Thời gian" title="Thời gian"><span>.  {{ question.time }} phút</span>
+                    <div><img src="{% static 'Exams/image/clock.png' %}" width="30px" alt="Thời gian" title="Thời gian"><span>.  {{ exam.time }} phút</span>
                     </div>
                 </div>
                 <div>
-                    <form action="{% url 'exam:do-exam' question.slug %}" method="get">
+                    <form action="{% url 'exam:do-exam' exam.slug %}" method="get">
                         {% csrf_token %}
-                        <input type="hidden" name="check" value="{{ forloop.counter }}-{{ question.id }}">
+                        <input type="hidden" name="check" value="{{ forloop.counter }}-{{ exam.id }}">
                         <button type="submit">Thi ngay</button>
                     </form>
                 </div>
@@ -40,7 +44,22 @@
         </div>
         {% endfor %}
     </div>
+    <div class="pagination">
+    <span class="step-links">
+        {% if exams.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ exams.previous_page_number }}">previous</a>
+        {% endif %}
 
+        <span class="current">
+            Page {{ exams.number }} / {{ exams.paginator.num_pages }}.
+        </span>
 
+        {% if exams.has_next %}
+            <a href="?page={{ exams.next_page_number }}">next</a>
+            <a href="?page={{ exams.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+    </div>
 </div>
 {% endblock %}

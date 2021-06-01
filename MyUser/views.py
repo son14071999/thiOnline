@@ -10,6 +10,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import User
 from .serializers import GetAllUser
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class Login(View):
@@ -52,6 +53,19 @@ class Ajax(APIView):
         list_user = User.objects.all()
         mydata = GetAllUser(list_user, many=True)
         return Response(data=mydata.data, status=status.HTTP_200_OK)
+    
+    
+class Info(LoginRequiredMixin, View):
+    login_url = '/user/login/'
+    def get(self, request):
+        return render(request, 'MyUser/info.html')
+
+
+class Logout(LoginRequiredMixin, View):
+    login_url = '/user/login/'
+    def get(self, request):
+
+        return render(request, 'MyUser/info.html')
 
 
 

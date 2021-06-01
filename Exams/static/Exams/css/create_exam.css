@@ -128,3 +128,6 @@ input, textarea{
     opacity: 0.6;
     font-size: 1.2rem;
 }
+.line.level{
+    margin-top: 20px;
+}

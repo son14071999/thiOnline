@@ -8,6 +8,7 @@ from Questions.models import Questions
 from History.models import History
 import unidecode
 import re
+from django.core.paginator import Paginator
 
 
 class create_exam(LoginRequiredMixin, View):
@@ -30,6 +31,7 @@ class create_exam(LoginRequiredMixin, View):
             message = 'Thời gian làm bài không nhỏ hơn 10 phút và lớn hơn 30 phút'
             return render(request, 'Exams/create_exam.html', {'message': message})
         us = request.user
+
         exam = Exams.objects.create(
             name=name,
             slug=re.sub(r'[ ]+', '-', unidecode.unidecode(name)),
@@ -37,21 +39,34 @@ class create_exam(LoginRequiredMixin, View):
             time=time,
             id_author=us
         )
+        if us.list_id_exam != None:
+            us.list_id_exam = us.list_id_exam + " " + str(exam.id)
+        else:
+            us.list_id_exam = str(exam.id)
+        us.save()
         list_id_questions = []
         i = 1
         while (True):
             try:
                 question = request.POST['question-' + str(i)]
+                level = request.POST['level-' + str(i)]
                 if question == '':
                     break
                 id_exam = exam
-                correct_answer = request.POST['correct-answer-' + str(i)]
+                try:
+                    correct_answer = request.POST['correct-answer-' + str(i)]
+
+                except:
+                    Exams.objects.remove(exam)
+                    message = 'Vui lòng nhập đáp án đúng'
+                    return render(request, 'Exams/create_exam.html', {'message': message})
                 answers = []
                 for alpha in alphabet:
                     try:
                         status = False
                         content = request.POST['answer-' + alpha + '-' + str(i)]
                         if content.strip() == '':
+                            Exams.objects.remove(exam)
                             message = 'Câu trả lời không được bỏ trống'
                             return render(request, 'Exams/create_exam.html', {'message': message})
                         if correct_answer == alpha:
@@ -72,27 +87,46 @@ class create_exam(LoginRequiredMixin, View):
                     link_media = ''
                 i = i + 1
                 q = Questions.objects.create(
+                    level_of_different=level,
                     id_exam=exam,
                     question=question,
                     answers=answers,
                     subject=subject,
                     link_media=link_media,
+                    correct_answer=correct_answer
                 )
                 list_id_questions.append(q.id)
 
             except:
                 break
         exam.list_id_questions = list_id_questions
+        exam.amount_questions = len(list_id_questions)
         exam.save()
+
         return redirect('/')
+
+
+class Search(LoginRequiredMixin, View):
+    login_url = '/user/login/'
+    def get(self, request):
+        str_search = request.GET['search']
+        print(str_search)
+        exams = Exams.objects.filter(name__icontains=str_search)
+        paginator = Paginator(exams, 5)  # Show 25 contacts per page.
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        return render(request, 'Exams/listExam.html', {'exams': page_obj})
 
 
 class ListExams(LoginRequiredMixin, View):
     login_url = '/user/login/'
 
     def get(self, request):
-        questions = Exams.objects.all().order_by('innitiated_date')
-        return render(request, 'Exams/listExam.html', {'questions': questions})
+        exams = Exams.objects.all().order_by('-innitiated_date')
+        paginator = Paginator(exams, 5)  # Show 25 contacts per page.
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        return render(request, 'Exams/listExam.html', {'exams': page_obj})
 
 
 class takeTheExams(LoginRequiredMixin, View):
@@ -114,6 +148,7 @@ class takeTheExams(LoginRequiredMixin, View):
 
 class checkAnswers(LoginRequiredMixin, View):
     login_url = '/user/login/'
+
     def post(self, request):
         id_exam = request.POST['id']
         exam = Exams.objects.get(id=id_exam)
@@ -121,8 +156,8 @@ class checkAnswers(LoginRequiredMixin, View):
         exam.save()
         questions = exam.questions_set.all()
         id_list_questions = ''
-        id_list_correct_questions = ''
-        id_user = request.user
+        list_user_answer = ''
+        user = request.user
         time_do = request.POST['time-do']
         scores = 0
         for question in questions:
@@ -130,20 +165,25 @@ class checkAnswers(LoginRequiredMixin, View):
             try:
                 answer = request.POST[str(question.id)]
                 question.correct = answer
-                if answer == question.correct_question:
-                    scores = scores+1
-                    id_list_correct_questions = id_list_correct_questions + " " + str(question.id)
+                if answer == question.correct_answer:
+                    scores = scores + 1
             except:
                 question.correct = None
-                pass
+            list_user_answer = list_user_answer + " " + str(question.correct)
 
-        History.objects.create(
+        h = History.objects.create(
             id_exam=exam,
             time_do=time_do,
-            id_user=id_user,
-            id_list_correct_questions=id_list_correct_questions,
-            id_list_questions=id_list_questions
+            id_user=user,
+            list_user_answers=list_user_answer,
+            id_list_questions=id_list_questions,
+            correct=scores
         )
+        if user.list_id_history != None:
+            user.list_id_history = user.list_id_history + " "+str(h.id)
+        else:
+            user.list_id_history = h.id
+        user.save()
         number = len(questions)
         return render(request, 'Exams/test_results.html', {
             'exam': exam,

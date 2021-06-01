@@ -19,7 +19,10 @@
     </div>
     <div class="header-right">
         {% if user.is_authenticated %}
-        <a class="btn-login avatar-user" href="{% url 'myuser:login' %}"><img src="{{ MEDIA_URL }}{{ user.image }}"></a>
+        <div>
+            <a class="btn-login avatar-user" href="{% url 'myuser:info' %}"><img src="{{ MEDIA_URL }}{{ user.image }}"></a>
+        </div>
+
         {% else %}
         <a class="btn-login" href="{% url 'myuser:login' %}">Log in</a><span> | </span>
         <a class="btn-signup" href="{% url 'myuser:signup' %}">Sign up</a>
