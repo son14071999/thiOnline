@@ -1,0 +1,42 @@
+.wrapper-random form {
+    min-width: 300px;
+    width: 40%;
+    margin: 0 auto;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.wrapper-random form > div {
+    margin-top: 10px;
+}
+
+.wrapper-random form .level {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.wrapper-random form .level div {
+    justify-content: space-between;
+    margin-top: 10px;
+}
+.wrapper-random form .level div input{
+    width: 40px;
+}
+.wrapper-random form .level div label{
+    min-width: 100px;
+}
+.wrapper-random .submit{
+    text-align: center;
+}
+.wrapper-random .submit button{
+        margin: 10px;
+    padding: 3px 15px;
+    font-size: 1.1rem;
+    border-radius: 10px;
+    background: darkgray;
+}
+.wrapper-random .submit button:hover{
+    background: #b3ecff;
+}

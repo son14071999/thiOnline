@@ -11,10 +11,11 @@ from rest_framework import status
 from .models import User
 from .serializers import GetAllUser
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.mail import send_mail
+from .tests import reschool
 
 
 class Login(View):
-
     def get(self, request):
         f = LoginForm()
         return render(request, 'MyUser/formLogin.html', {'f': f})
@@ -23,18 +24,17 @@ class Login(View):
         user = auth.authenticate(email=request.POST['email'], password=request.POST['password'])
         if user is not None:
             auth.login(request, user)
-            return render(request, 'Home/home.html')
+            return redirect('exam:show-list-exam')
         else:
             return render(request, 'MyUser/formLogin.html', {'err': 'Email hoặc mật khẩu sai !'})
         
 
 class Signup(View):
+    schools = reschool()
     def get(self, request):
-        f = LoginForm()
         if request.is_ajax():
-            print(request.GET['btn_text'])
             return JsonResponse({'data': 'get'}, status=200)
-        return render(request, 'MyUser/formSignup.html', {'f': f})
+        return render(request, 'MyUser/formSignup.html', {'schools': self.schools})
 
     def post(self, request):
         f = LoginForm(request.POST, request.FILES)
@@ -42,7 +42,7 @@ class Signup(View):
             message = check(f)
             if message == "validate":
                 f.save()
-                return redirect('Home:home')
+                return redirect('myuser:login')
             else:
                 return HttpResponse(message)
         return HttpResponse(f.errors)
@@ -57,15 +57,29 @@ class Ajax(APIView):
     
 class Info(LoginRequiredMixin, View):
     login_url = '/user/login/'
+
     def get(self, request):
         return render(request, 'MyUser/info.html')
 
 
 class Logout(LoginRequiredMixin, View):
     login_url = '/user/login/'
-    def get(self, request):
 
-        return render(request, 'MyUser/info.html')
+    def get(self, request):
+        auth.logout(request)
+        return render(request, 'MyUser/formLogin.html')
+    
+
+
+def forgotpass(request):
+    send_mail(
+        'Subject here',
+        'Here is the message.',
+        'son1999tmgl@gmail.com',
+        ['nguyenxuanson_t62@hus.edu.vn'],
+        fail_silently=False,
+    )
+    return redirect('exam:show-list-exam')
 
 
 

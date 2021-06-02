@@ -11,7 +11,12 @@ class HistoryView(LoginRequiredMixin, View):
     login_url = '/user/login/'
     def get(self, request):
         user = request.user
-        id_historys = user.list_id_history.strip().split(" ")
+        try:
+            id_historys = user.list_id_history.strip().split(" ")
+        except :
+            return render(request, 'History/show_history.html', {
+                'message': 'dữ liệu trống'
+            })
         historys = []
         for history in id_historys:
             try:

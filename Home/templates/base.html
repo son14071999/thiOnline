@@ -15,7 +15,7 @@
 <div id="header">
     <div class="header-left">
         <span class="control-menu"><img src="{% static 'Home/images/menu.png' %}"></span>
-        <a href="{% url 'Home:home' %}'"><img src="{% static 'Home/images/logo.png' %}" class="logo-web"></a>
+        <a href="{% url 'Home:home' %}"><img src="{% static 'Home/images/logo.png' %}" class="logo-web"></a>
     </div>
     <div class="header-right">
         {% if user.is_authenticated %}

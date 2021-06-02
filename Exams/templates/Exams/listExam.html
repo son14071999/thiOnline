@@ -11,10 +11,13 @@
                 <option value="Mới">Mới</option>
             </select>
         </div>
+        <div class="random-exam">
+            <a href="{% url 'exam:getRandom' %}">Tạo đề ngẫu nhiên</a>
+        </div>
         <div class="search">
             <form action="{% url 'exam:search' %}" method="get">
                 {% csrf_token %}
-                <input type="text" name="search" id="searchbar" value="Tìm kiếm">
+                <input type="text" name="search" id="searchbar" placeholder="Search">
 
             </form>
         </div>

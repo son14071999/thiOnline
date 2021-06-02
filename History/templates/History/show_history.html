@@ -2,7 +2,11 @@
 {% block content %}
 {% load static %}
 <link rel="stylesheet" href="{% static 'History/css/style.css' %}">
+{% if message %}
+    <div style="text-align: center; opacity: 0.6">{{ message }}</div>
+{% else %}
 <table id="customers">
+
     <tr>
         <th>Đề</th>
         <th>Thời gian</th>
@@ -18,5 +22,6 @@
     </tr>
     {% endfor %}
 </table>
+{% endif %}
 
 {% endblock %}

@@ -25,11 +25,13 @@ $(document).ready(function () {
 $(document).ready(function () {
     $('.add-question img').click(function () {
         let number = $('.info-question>.line>label');
+
         number = number[number.length - 1].innerHTML;
+        console.log(number + ' ');
         number = parseInt(number.replace('Câu ', '').replace(':', '')) + 1;
         console.log(number);
         let add =
-'<div class="line">\n' +
+            ' <div class="line">\n' +
             '                        <label for="question">Câu '+number+': </label>\n' +
             '                        <textarea name="question-'+number+'" id="question" rows="3"></textarea>\n' +
             '                    </div>\n' +
@@ -75,7 +77,7 @@ $(document).ready(function () {
             '                                   id="D-'+number+'-radio" value="D">\n' +
             '                        </div>\n' +
             '                    </div>\n' +
-            '                    <div class="line level">\n' +
+            '                    <div class="level">\n' +
             '                        <label for="level">Độ khó:</label>\n' +
             '                        <select name="level-'+number+'" id="level">\n' +
             '                            <option value="1">Rất dễ</option>\n' +
@@ -85,7 +87,6 @@ $(document).ready(function () {
             '                            <option value="4">Rất khó</option>\n' +
             '                        </select>\n' +
             '                    </div>';
-
 
         let div = document.createElement("div");
         div.className += 'info-question';

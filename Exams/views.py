@@ -9,6 +9,7 @@ from History.models import History
 import unidecode
 import re
 from django.core.paginator import Paginator
+import random
 
 
 class create_exam(LoginRequiredMixin, View):
@@ -103,11 +104,12 @@ class create_exam(LoginRequiredMixin, View):
         exam.amount_questions = len(list_id_questions)
         exam.save()
 
-        return redirect('/')
+        return redirect('exam:show-list-exam')
 
 
 class Search(LoginRequiredMixin, View):
     login_url = '/user/login/'
+
     def get(self, request):
         str_search = request.GET['search']
         print(str_search)
@@ -180,7 +182,7 @@ class checkAnswers(LoginRequiredMixin, View):
             correct=scores
         )
         if user.list_id_history != None:
-            user.list_id_history = user.list_id_history + " "+str(h.id)
+            user.list_id_history = user.list_id_history + " " + str(h.id)
         else:
             user.list_id_history = h.id
         user.save()
@@ -195,6 +197,7 @@ class checkAnswers(LoginRequiredMixin, View):
 
 class Manage(LoginRequiredMixin, View):
     login_url = '/user/login/'
+
     def get(self, request):
         user = request.user
         all_exams_do = History.objects.filter(id_user=user)
@@ -208,4 +211,99 @@ class Manage(LoginRequiredMixin, View):
             'exams_do': exams_do,
             'exams_create': exams_create,
 
+        })
+
+
+class Random(LoginRequiredMixin, View):
+    login_url = '/user/login/'
+    list_subject = ['Toán', 'Lý', 'Hoá', 'Sinh', 'Sử', 'Địa', 'Công dân', 'Tiếng anh']
+    levels = ['Rất dễ', 'Dễ', 'Trung bình', 'Khó', 'Rất khó']
+
+    def get(self, request):
+        return render(request, 'Exams/form_random.html', {'list_subject': self.list_subject, 'levels': self.levels})
+
+    def post(self, request):
+        subject = request.POST['subject']
+        level1 = request.POST['r-1']
+        level2 = request.POST['r-2']
+        level3 = request.POST['r-3']
+        level4 = request.POST['r-4']
+        level5 = request.POST['r-5']
+        time = request.POST['time']
+        questions = Questions.objects.all()
+        questions_level1 = []
+        questions_level2 = []
+        questions_level3 = []
+        questions_level4 = []
+        questions_level5 = []
+        for q in questions:
+            if q.subject == subject:
+                if q.level_of_different == 1:
+                    questions_level1.append(q)
+                elif q.level_of_different == 2:
+                    questions_level2.append(q)
+                elif q.level_of_different == 3:
+                    questions_level3.append(q)
+                elif q.level_of_different == 4:
+                    questions_level4.append(q)
+                elif q.level_of_different == 5:
+                    questions_level5.append(q)
+            else:
+                pass
+
+        random.shuffle(questions_level1)
+        random.shuffle(questions_level2)
+        random.shuffle(questions_level3)
+        random.shuffle(questions_level4)
+        random.shuffle(questions_level5)
+
+        if len(questions_level1) < int(level1) or len(questions_level2) < int(level2) or len(
+                questions_level3) < int(level3) or len(questions_level4) < int(level4) or len(questions_level5) < int(level5):
+            return render(request, 'Exams/form_random.html',
+                          {'list_subject': self.list_subject, 'levels': self.levels,
+                           'message': 'Không đủ câu hỏi theo yêu cầu!'})
+        questions = questions_level1[:int(level1)] + questions_level2[:int(level2)] + questions_level3[:int(
+            level3)] + questions_level4[:int(level4)] + questions_level5[:int(level5)]
+        return render(request, 'Exams/show_random.html', {
+            'questions': questions,
+            'time': int(time),
+            'sum': len(questions)
+        })
+
+
+class checkRandom(LoginRequiredMixin, View):
+    login_url = '/user/login/'
+    def post(self, request):
+        sum = int(request.POST['sum'])
+        questions = []
+        scores = 0
+        list_user_answer = ''
+        id_list_questions = ''
+        for i in range(1, sum+1):
+            q = request.POST['h-'+str(i)]
+            q = Questions.objects.get(id=q)
+            id_list_questions = id_list_questions + " " + str(q.id)
+            try:
+                answer = request.POST[str(i)]
+                q.correct = answer
+                if answer == q.correct_answer:
+                    scores = scores + 1
+            except:
+                q.correct = None
+            list_user_answer = list_user_answer + " "+ str(q.correct)
+            questions.append(q)
+        number = len(questions)
+        time_do = request.POST['time-do']
+        user = request.user
+        History.objects.create(
+            time_do=time_do,
+            id_user=user,
+            list_user_answers=list_user_answer,
+            id_list_questions=id_list_questions,
+            correct=scores
+        )
+        return render(request, 'Exams/score_random.html', {
+            'questions': questions,
+            'number': number,
+            'score': scores
         })

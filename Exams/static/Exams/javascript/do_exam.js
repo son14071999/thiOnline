@@ -12,7 +12,7 @@ $(document).ready(function () {
 $(document).ready(function () {
     var time_do = $('input[name="time-do"]');
     console.log('time-do: ', time_do);
-    var m = parseInt($('#do-time').val()) - 9;
+    var m = parseInt($('#do-time').val())-1;
     var h = parseInt(m/60);
     m = m%60;
     var s = 60;

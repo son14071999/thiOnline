@@ -9,11 +9,19 @@
 
 .info{
     font-size: 20px;
-    text-align: center;
 }
 .info form>div{
     margin-top: 15px;
 }
 .info form>div>label{
     min-width: 100px;
+}
+.logout{
+    margin-top: 3rem;
+
+}
+.logout a{
+    padding: 3px 5px;
+    text-decoration: none;
+    font-size: 1.3rem;
 }

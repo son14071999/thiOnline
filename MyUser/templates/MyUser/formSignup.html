@@ -39,29 +39,11 @@
 
         <div class="line-form-signup inline3">
             <div>
-                <label for="tinh-tp">Tỉnh/Tp:</label>
-                <select name="tinh-tp" id="tinh-tp">
-                    <option value="Hà Nội">Hà Nội</option>
-                    <option value="Hà Nam">Hà Nam</option>
-                    <option value="hải PHòng">hải PHòng</option>
-                </select>
-            </div>
-
-            <div>
-                <label for="quan-huyen">Quận\huyện:</label>
-                <select name="quan-huyen" id="quan-huyen">
-                    <option value="Huyện 1">Huyện 1</option>
-                    <option value="Huyện 2">Huyện 2</option>
-                    <option value="Huyện 3">quận 3</option>
-                </select>
-            </div>
-
-            <div>
                 <label for="truong">Trường:</label>
                 <select name="school" id="truong">
-                    <option value="thpt thạch thất">thpt thạch thất</option>
-                    <option value="trường 1">trường 1</option>
-                    <option value="quận 3">quận 3</option>
+                    {% for school in schools %}
+                         <option value="{{ school }}">{{ school }}</option>
+                    {% endfor %}
                 </select>
             </div>
 
